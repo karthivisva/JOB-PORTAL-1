@@ -35,17 +35,17 @@ const userSchema = new mongoose.Schema(
         },
       ],
       resume: {
-        type: string, // URL to resume file
+        type: String, // URL to resume file
       },
       resumeOriginalname: {
-        type: string, // Original name of resume file
+        type: String, // Original name of resume file
       },
       company: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Company",
       },
       profilePhoto: {
-        type: string, // URL to profile photo file
+        type: String, // URL to profile photo file
         default: "",
       },
     },
