@@ -40,7 +40,12 @@ export const getAllCompanies = async (req, res) => {
     if (!companies) {
       return res.status(404).json({ message: "No companies found" });
     }
-  } catch (error) {
+    return res.status(200).json({
+      companies,
+      success: true
+    });
+  } 
+  catch (error) {
     console.error(error);
   }
 };
