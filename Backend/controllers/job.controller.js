@@ -1,3 +1,4 @@
+import { Job } from "../models/job.model.js";
 //Admin job posting
 export const postJob = async (req, res) => {
   try {
@@ -8,42 +9,45 @@ export const postJob = async (req, res) => {
       salary,
       location,
       jobType,
+      experience,
       position,
       companyId,
-      experience,
     } = req.body;
     const userId = req.id;
+
     if (
       !title ||
       !description ||
       !requirements ||
       !salary ||
-      !companyId ||
-      !experience ||
+      !location ||
       !jobType ||
+      !experience ||
       !position ||
-      !location
+      !companyId
     ) {
-      return res
-        .status(400)
-        .json({ message: "Please fill all the fields", status: false });
+      return res.status(400).json({
+        message: "All fields are required",
+        success: false,
+      });
     }
-
-    const job = await createImageBitmap({
+    const job = await Job.create({
       title,
       description,
       requirements: requirements.split(","),
       salary: Number(salary),
       location,
       jobType,
+      experienceLevel: experience,
       position,
       company: companyId,
-      experienceLevel: experience,
       created_by: userId,
     });
-    return res
-      .status(201)
-      .json({ message: "Job posted successfully", status: true, job });
+    res.status(201).json({
+      message: "Job posted successfully.",
+      job,
+      status: true,
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Server Error", status: false });
@@ -58,13 +62,12 @@ export const getAllJobs = async (req, res) => {
       $or: [
         { title: { $regex: keyword, $options: "i" } },
         { description: { $regex: keyword, $options: "i" } },
-        { requirements: { $regex: keyword, $options: "i" } },
-        { location: { $regex: keyword, $options: "i" } },
-        { jobType: { $regex: keyword, $options: "i" } },
-        { position: { $regex: keyword, $options: "i" } },
       ],
     };
-    const jobs = await Job.find(query);
+    const jobs = await Job.find(query).populate({
+      path: "company",
+    }).sort({createdAt:-1});
+
     if (!jobs) {
       return res.status(404).json({ message: "No jobs found", status: false });
     }
