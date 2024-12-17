@@ -106,6 +106,10 @@ export const updateStatus = async (req, res) => {
     //update the status
     application.status = status.toLowerCase();
     await application.save();
+
+    return res
+      .status(200)
+      .json({ message: "Application status updated", success: true });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error", success: false });
