@@ -18,8 +18,7 @@ const Register = () => {
     file: "",
   });
 
-
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -46,13 +45,16 @@ const navigate = useNavigate();
         },
         withCredentials: true,
       });
-      if(res.data.success){
+      if (res.data.success) {
         navigate("/login");
         toast.success(res.data.message);
-         
       }
     } catch (error) {
       console.log(error);
+      const errorMessage = error.response
+        ? error.response.data.message
+        : "An unexpected error occurred.";
+      toast.error(errorMessage);
     }
   };
   return (
