@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../components_lite/Navbar";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { RadioGroup } from "../ui/radio-group";
 import { Link } from "react-router-dom";
 
 const Register = () => {
@@ -14,7 +14,9 @@ const Register = () => {
           action=""
           className="w-1/2 border border-gray-500 rounded-md p-4 my-10"
         >
-          <h1 className="font-bold text-xl mb-5 text-center text-blue-600">Register</h1>
+          <h1 className="font-bold text-xl mb-5 text-center text-blue-600">
+            Register
+          </h1>
           <div className="my-2">
             <Label>Name</Label>
             <Input type="text" placeholder="John Doe"></Input>
@@ -62,7 +64,10 @@ const Register = () => {
           </button>
           {/* already account then login */}
           <p className="text-gray-500 text-md my-2">
-            Already have an account? <Link to="/login" className="text-blue-700">Login</Link>
+            Already have an account?{" "}
+            <Link to="/login" className="text-blue-700 font-semibold">
+              Login
+            </Link>
           </p>
         </form>
       </div>
