@@ -4,6 +4,7 @@ import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { Contact, Mail, Pen } from "lucide-react";
 import { Badge } from "../ui/badge";
+import AppliedJob from "./AppliedJob";
 
 const skills = [
   "React",
@@ -25,7 +26,7 @@ const Profile = () => {
     <div>
       <Navbar />
 
-      <div className="max-w-7xl mx-auto  bg-white border border-gray-200 rounded-2xl my-5 p-8 shadow shadow-gray-400 hover:shadow-yellow-400">
+      <div className="max-w-4xl mx-auto  bg-white border border-gray-200 rounded-2xl my-5 p-8 shadow shadow-gray-400 hover:shadow-yellow-400">
         <div className="flex justify-between">
           <div className="flex items-center gap-5">
             <Avatar className="cursor-pointer h-24 w-24">
@@ -87,12 +88,12 @@ const Profile = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl">
+        <h1 className="text-lg my-5 font-bold">Applied Jobs</h1>
 
-        <div className="max-w-4xl mx-auto bg-white rounded-2xl">
-          <h1 className="text-md font-bold">Applied Jobs</h1>
-         
-          {/* Add Application Table */}
-        </div>
+        {/* Add Application Table */}
+        <AppliedJob />
       </div>
     </div>
   );
