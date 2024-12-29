@@ -13,6 +13,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { USER_API_ENDPOINT } from "@/utils/data";
 import { setUser } from "@/redux/authSlice";
+import { Loader2 } from "lucide-react";
 
 const EditProfileModal = ({ open, setOpen }) => {
   const [loading, setLoading] = useState(false);
@@ -46,6 +47,7 @@ const EditProfileModal = ({ open, setOpen }) => {
     }
 
     try {
+      setLoading(true);
       const res = await axios.post(
         `${USER_API_ENDPOINT}/profile/update`,
         formData,
@@ -64,6 +66,8 @@ const EditProfileModal = ({ open, setOpen }) => {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
+    } finally {
+      setLoading(false);
     }
     setOpen(false);
 
@@ -171,15 +175,14 @@ const EditProfileModal = ({ open, setOpen }) => {
 
             <DialogFooter>
               {loading ? (
-                <div className="flex items-center justify-center my-10">
-                  <div className="spinner-border text-blue-600" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                </div>
+                <Button className="w-full my-4">
+                  {" "}
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait{" "}
+                </Button>
               ) : (
-                <button className="w-full py-3 my-3 text-white flex items-center justify-center max-w-7xl mx-auto bg-black hover:bg-gray-900 rounded-md">
+                <Button type="submit" className="w-full my-4">
                   Save
-                </button>
+                </Button>
               )}
             </DialogFooter>
           </form>

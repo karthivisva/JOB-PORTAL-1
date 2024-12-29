@@ -22,7 +22,7 @@ import { useSelector } from "react-redux";
 const isResume = true;
 const Profile = () => {
   const [open, setOpen] = useState(false);
-  const {user} = useSelector((store) => store.auth);
+  const { user } = useSelector((store) => store.auth);
   return (
     <div>
       <Navbar />
@@ -69,7 +69,9 @@ const Profile = () => {
             <h1>Skills</h1>
             <div className="flex items-center gap-1">
               {user?.profile?.skills.length !== 0 ? (
-                user?.profile?.skills.map((item, index) => <Badge key={index}>{item}</Badge>)
+                user?.profile?.skills.map((item, index) => (
+                  <Badge key={index}>{item}</Badge>
+                ))
               ) : (
                 <span>NA</span>
               )}
@@ -84,12 +86,11 @@ const Profile = () => {
               {isResume ? (
                 <a
                   target="_blank"
-                  href={
-                    "https://www.youtube.com/channel/UCilndivcZpxq-xfaxmfpwng"
-                  }
+                  href={user?.profile?.resume}
                   className="text-blue-600 hover:underline cursor-pointer"
                 >
-                  Download
+                  {/* Download */}
+                  {user?.profile?.resumeOriginalName}
                 </a>
               ) : (
                 <span>No Resume Found</span>
