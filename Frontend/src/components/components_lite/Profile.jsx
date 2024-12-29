@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./Navbar";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { Contact, Mail, Pen } from "lucide-react";
 import { Badge } from "../ui/badge";
 import AppliedJob from "./AppliedJob";
+import EditProfileModal from "./EditProfileModal";
 
 const skills = [
   "React",
@@ -13,15 +14,13 @@ const skills = [
   "CSS",
   "Python",
   "Node.js",
-  "MongoDB",
-  "MySQL",
-  "Redux",
   "Tailwind CSS",
   "Docker",
   "Kubernetes",
 ];
+const isResume = true;
 const Profile = () => {
-  const isResume = true;
+  const [open, setOpen] = useState(false);
   return (
     <div>
       <Navbar />
@@ -40,7 +39,11 @@ const Profile = () => {
               <p>Lorem ipsum dolor sit amet</p>
             </div>
           </div>
-          <Button className="text-right" variant="outline">
+          <Button
+            onClick={() => setOpen(true)}
+            className="text-right"
+            variant="outline"
+          >
             <Pen />
           </Button>
         </div>
@@ -95,6 +98,9 @@ const Profile = () => {
         {/* Add Application Table */}
         <AppliedJob />
       </div>
+
+      {/* Edit Profile Modal */}
+      <EditProfileModal open={open} setOpen={setOpen} />
     </div>
   );
 };
