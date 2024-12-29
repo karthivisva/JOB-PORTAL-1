@@ -134,25 +134,26 @@ export const updateProfile = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
     const file = req.file;
-    console.log(fullname, email, phoneNumber, bio, skills);
-    console.log(req.body.phoneNumber);
-    
 
-    //cloudinary upload
-    let skillsArray;
-    if (skills) {
-      const skillsArray = skills.split(",");
-    }
-    const userId = req.id; //middleware authentication
+    // Initialize userId at the beginning
+    const userId = req.id; // middleware authentication
+
+    // Check if userId is valid
     let user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({
-        message: "User not found",
+        message: "User  not found",
         success: false,
       });
     }
 
-    //update database profile
+    // Process skills if provided
+    let skillsArray;
+    if (skills) {
+      skillsArray = skills.split(",");
+    }
+
+    // Update user profile
     if (fullname) {
       user.fullname = fullname;
     }
@@ -168,7 +169,8 @@ export const updateProfile = async (req, res) => {
     if (skills) {
       user.profile.skills = skillsArray;
     }
-    // /resume
+
+    // Save updated user
     await user.save();
 
     user = {

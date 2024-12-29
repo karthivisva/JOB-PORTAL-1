@@ -23,7 +23,7 @@ const EditProfileModal = ({ open, setOpen }) => {
     email: user?.email,
     phoneNumber: user?.phoneNumber,
     bio: user?.profile?.bio,
-    skills: user?.profile?.skills?.map((skills) => skills),
+    skills: user?.profile?.skills?.map((skill) => skill),
     file: user?.profile?.resume,
   });
   const dispatch = useDispatch();
@@ -32,7 +32,6 @@ const EditProfileModal = ({ open, setOpen }) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  
   const handleFileChange = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -41,6 +40,7 @@ const EditProfileModal = ({ open, setOpen }) => {
     formData.append("phoneNumber", input.phoneNumber);
     formData.append("bio", input.bio);
     formData.append("skills", input.skills);
+
     if (input.file) {
       formData.append("file", input.file);
     }
@@ -50,17 +50,20 @@ const EditProfileModal = ({ open, setOpen }) => {
         `${USER_API_ENDPOINT}/profile/update`,
         formData,
         {
-          headers: { "Content-Type": "multipart/form-data" },
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
           withCredentials: true,
         }
       );
       if (res.data.success) {
-        dispatch(setUser(res.data.user));
+        // dispatch(setUser(res.data.user));
+        dispatch(setUser({ ...res.data.user, skills: input.skills }));
         toast.success(res.data.message);
       }
     } catch (error) {
       console.log(error);
-      toast.error("Failed to update profile");
+      toast.error(error.response.data.message);
     }
     setOpen(false);
 
@@ -143,10 +146,9 @@ const EditProfileModal = ({ open, setOpen }) => {
                   Skills
                 </Label>
                 <input
-                  type="text"
                   id="skills"
-                  value={input.skills} // Ensure this is correctly set
-                  name="skills" // Ensure this matches the expected key
+                  name="skills"
+                  value={input.skills}
                   onChange={changeEventHandler}
                   className="col-span-3 border border-gray-300 rounded-md p-2"
                 />
