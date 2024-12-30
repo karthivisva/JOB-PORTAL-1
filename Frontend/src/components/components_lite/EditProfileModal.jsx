@@ -52,25 +52,24 @@ const EditProfileModal = ({ open, setOpen }) => {
         `${USER_API_ENDPOINT}/profile/update`,
         formData,
         {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
+              headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                withCredentials: true
+            });
+            if (res.data.success) {
+                dispatch(setUser(res.data.user));
+                toast.success(res.data.message);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response.data.message);
+        } finally{
+            setLoading(false);
         }
-      );
-      if (res.data.success) {
-        dispatch(setUser(res.data.user));
-        toast.success(res.data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(error.response.data.message);
-    } finally {
-      setLoading(false);
+        setOpen(false);
+        console.log(input);
     }
-    setOpen(false);
-    console.log(input);
-  };
 
   const FileChangehandler = (e) => {
     const file = e.target.files?.[0];
