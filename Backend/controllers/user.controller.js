@@ -140,7 +140,6 @@ export const updateProfile = async (req, res) => {
     //cloudinary upload
     const fileUri = getDataUri(file);
     const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-    
 
     // Initialize userId at the beginning
     const userId = req.id; // middleware authentication
