@@ -78,8 +78,8 @@ const Profile = () => {
                   href={user?.profile?.resume}
                   className="text-blue-600 hover:underline cursor-pointer"
                 >
-                  {/* Download */}
-                  {user?.profile?.resume}
+                  Download
+                  {user?.profile?.resumeOriginalName}
                 </a>
               ) : (
                 <span>No Resume Found</span>
