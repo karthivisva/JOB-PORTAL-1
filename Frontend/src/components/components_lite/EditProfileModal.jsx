@@ -59,8 +59,7 @@ const EditProfileModal = ({ open, setOpen }) => {
         }
       );
       if (res.data.success) {
-        // dispatch(setUser(res.data.user));
-        dispatch(setUser({ ...res.data.user, skills: input.skills }));
+        dispatch(setUser(res.data.user));
         toast.success(res.data.message);
       }
     } catch (error) {
@@ -70,7 +69,6 @@ const EditProfileModal = ({ open, setOpen }) => {
       setLoading(false);
     }
     setOpen(false);
-
     console.log(input);
   };
 
@@ -163,9 +161,9 @@ const EditProfileModal = ({ open, setOpen }) => {
                   Resume
                 </Label>
                 <input
-                  type="file"
                   id="file"
                   name="file"
+                  type="file"
                   accept="application/pdf"
                   onChange={FileChangehandler}
                   className="col-span-3 border border-gray-300 rounded-md p-2"

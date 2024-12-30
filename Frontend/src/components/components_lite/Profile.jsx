@@ -8,17 +8,6 @@ import AppliedJob from "./AppliedJob";
 import EditProfileModal from "./EditProfileModal";
 import { useSelector } from "react-redux";
 
-// const skills = [
-//   "React",
-//   "JavaScript",
-//   "HTML",
-//   "CSS",
-//   "Python",
-//   "Node.js",
-//   "Tailwind CSS",
-//   "Docker",
-//   "Kubernetes",
-// ];
 const isResume = true;
 const Profile = () => {
   const [open, setOpen] = useState(false);
@@ -90,7 +79,7 @@ const Profile = () => {
                   className="text-blue-600 hover:underline cursor-pointer"
                 >
                   {/* Download */}
-                  {user?.profile?.resumeOriginalName}
+                  {user?.profile?.resume}
                 </a>
               ) : (
                 <span>No Resume Found</span>
